@@ -1,5 +1,4 @@
 # Luminar_Code - Sistema web Escuela Tecnica N.1
-
 Repositorio del proyecto final de bachillerato tecnologia de la informacion 2026.
 
 ## Descripcion
@@ -27,11 +26,18 @@ Git instalado
 
 ## Instalacion
 1. Clonar el repositorio
-2. Copiar la carpeta del proyecto dentro de htdocs (XAMPP) o www (Laragon)
-3. Importar el script SQL de la base de datos
-4. Configurar la conexion a la base de datos en el archivo de configuracion
-5. Abrir el navegador en localhost/Luminar_code
+2. Copiar la carpeta del proyecto dentro de htdocs (XAMPP) 
+3. Abrir phpMyAdmin y ejecutar los scripts SQL de la carpeta database/, en este orden:
+   - ddl_luminarcode.sql (crea la base de datos y las 17 tablas)
+   - permiso_usuarios.sql (crea los usuarios de MySQL de la aplicacion)
+   - datos_prueba.sql (carga datos de prueba)
+4. Verificar la conexion en backend/config/Database.php (usuario y clave ya configurados)
+5. Abrir el navegador en localhost/luminar_code
 
+## Convenciones de commits
+- feat: nueva funcionalidad
+- fix: correccion de errores
+- docs: cambios en documentacion
+- db: cambios relacionados a la base de datos
 ## Estado del proyecto
-Primera entrega en curso - 22/06/2026
-
+Segunda entrega en curso - 07/09/2026
