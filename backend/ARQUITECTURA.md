@@ -22,6 +22,10 @@ Expone las operaciones CRUD sobre la tabla Profesor: obtenerTodos(), obtenerPorI
 Los datos que gestiona son unicamente Nombre y Apellido, segun la RNE-7 la informacion publica de un profesor
 se limita a esos dos campos mas las materias que dicta.
 
+Materia.php
+
+Expone las operaciones CRUD sobre la tabla Materia: obtenerTodos(), obtenerPorId(), crear(), actualizar() y eliminar().
+
 Capa de Presentacion - backend/probar_crud.php
 
 Script de prueba que usa las clases de models para mostrar resultados en pantalla, sin conocer nada de SQL ni de la conexion a la base de datos. 
