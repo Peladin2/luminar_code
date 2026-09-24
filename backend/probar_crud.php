@@ -52,3 +52,29 @@ echo "<h2>Eliminar el profesor de prueba</h2>";
 $profesor->eliminar($nuevoIdProfesor);
 echo "Profesor eliminado.<br>";
 
+require_once __DIR__ . '/models/Materia.php';
+
+$materia = new Materia();
+
+echo "<h2>Materias existentes</h2>";
+$listaMaterias = $materia->obtenerTodos();
+foreach ($listaMaterias as $fila) {
+    echo "ID " . $fila['ID_Materia'] . " - " . $fila['Nombre'] . "<br>";
+}
+
+echo "<h2>Crear una materia nueva</h2>";
+$nuevoIdMateria = $materia->crear('Contabilidad');
+echo "Materia creada con ID: " . $nuevoIdMateria . "<br>";
+
+echo "<h2>Actualizar esa materia</h2>";
+$materia->actualizar($nuevoIdMateria, 'Contabilidad y Gestión');
+echo "Materia actualizada.<br>";
+
+echo "<h2>Ver la materia actualizada</h2>";
+$materiaActualizada = $materia->obtenerPorId($nuevoIdMateria);
+echo $materiaActualizada['Nombre'] . "<br>";
+
+echo "<h2>Eliminar la materia de prueba</h2>";
+$materia->eliminar($nuevoIdMateria);
+echo "Materia eliminada.<br>";
+
