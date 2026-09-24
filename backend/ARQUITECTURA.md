@@ -1,24 +1,34 @@
 Arquitectura del Backend - Luminar Code
 
-El backend está organizado en 3 capas, siguiendo Programación Orientada a Objetos:
+El backend esta organizado en 3 capas, siguiendo Programacion Orientada a Objetos:
 
 Capa de Datos - backend/config/Database.php
 
-Clase responsable de abrir la conexión hacia MySQL usando PDO con consultas preparadas.
-Es la única clase que conoce las credenciales de conexión.
+Clase responsable de abrir la conexion hacia MySQL usando PDO con consultas preparadas.
+Es la unica clase que conoce las credenciales de conexion.
 
-Capa de Lógica de Negocio - backend/models/Curso.php
+Capa de Logica de Negocio - backend/models/
 
-Clase que recibe la conexión de Database en su constructor y expone las operaciones CRUD sobre la tabla Curso: 
-obtenerTodos(), obtenerPorId(), crear(), actualizar() y eliminar(). Todas las consultas usan sentencias preparadas 
-(prepare + bindParam) para prevenir inyección SQL.
+Clases que reciben la conexion de Database en su constructor y exponen las operaciones sobre cada tabla.
+Todas las consultas usan sentencias preparadas (prepare + bindParam) para prevenir inyeccion SQL.
 
-Capa de Presentación - backend/probar_crud.php
+Curso.php
 
-Script de prueba que usa la clase Curso para mostrar resultados en pantalla, sin conocer nada de SQL ni de la conexión a la base de datos. 
-Cuando el frontend esté integrado, esta capa se reemplaza por vistas reales conectadas a los mismos modelos.
+Expone las operaciones CRUD sobre la tabla Curso: obtenerTodos(), obtenerPorId(), crear(), actualizar() y eliminar().
 
-Relación entre las clases
+Profesor.php
 
-Curso depende de Database (composición: la usa, pero no hereda de ella). Database no depende de Curso,
-lo que permite reutilizarla para futuros modelos (Profesor, Materia, Oferta_Educativa, etc.) sin duplicar la lógica de conexión.
+Expone las operaciones CRUD sobre la tabla Profesor: obtenerTodos(), obtenerPorId(), crear(), actualizar() y eliminar().
+Los datos que gestiona son unicamente Nombre y Apellido, segun la RNE-7 la informacion publica de un profesor
+se limita a esos dos campos mas las materias que dicta.
+
+Capa de Presentacion - backend/probar_crud.php
+
+Script de prueba que usa las clases de models para mostrar resultados en pantalla, sin conocer nada de SQL ni de la conexion a la base de datos. 
+Cuando el frontend este integrado, esta capa se reemplaza por vistas reales conectadas a los mismos modelos.
+
+
+Relacion entre las clases
+
+Cada modelo depende de Database (composicion: la usa, pero no hereda de ella). Database no depende de ningun modelo,
+lo que permite reutilizarla para futuros modelos sin duplicar la logica de conexion.
