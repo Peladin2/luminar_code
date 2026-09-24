@@ -11,11 +11,11 @@ foreach ($listaCursos as $fila) {
 }
 
 echo "<h2>Crear un curso nuevo</h2>";
-$nuevoId = $curso->crear('Bachillerato Tecnológico en Turismo', 'Formación técnica orientada al sector turístico.');
+$nuevoId = $curso->crear('Bachillerato Tecnologico en Programacion', 'Formacion tecnica orientada al sector informatico.');
 echo "Curso creado con ID: " . $nuevoId . "<br>";
 
 echo "<h2>Actualizar ese curso</h2>";
-$curso->actualizar($nuevoId, 'Bachillerato Tecnológico en Turismo', 'Descripción actualizada de prueba.');
+$curso->actualizar($nuevoId, 'Bachillerato Tecnologico en Programacion', 'Descripcion actualizada de prueba.');
 echo "Curso actualizado.<br>";
 
 echo "<h2>Ver el curso actualizado</h2>";
@@ -41,7 +41,7 @@ $nuevoIdProfesor = $profesor->crear('Mariano', 'Peralta');
 echo "Profesor creado con ID: " . $nuevoIdProfesor . "<br>";
 
 echo "<h2>Actualizar ese profesor</h2>";
-$profesor->actualizar($nuevoIdProfesor, 'Mariano', 'Peralta Rodríguez');
+$profesor->actualizar($nuevoIdProfesor, 'Mariano', 'Peralta Rodriguez');
 echo "Profesor actualizado.<br>";
 
 echo "<h2>Ver el profesor actualizado</h2>";
@@ -67,7 +67,7 @@ $nuevoIdMateria = $materia->crear('Contabilidad');
 echo "Materia creada con ID: " . $nuevoIdMateria . "<br>";
 
 echo "<h2>Actualizar esa materia</h2>";
-$materia->actualizar($nuevoIdMateria, 'Contabilidad y Gestión');
+$materia->actualizar($nuevoIdMateria, 'Contabilidad y Gestion');
 echo "Materia actualizada.<br>";
 
 echo "<h2>Ver la materia actualizada</h2>";
