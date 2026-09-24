@@ -26,3 +26,29 @@ echo "<h2>Eliminar el curso de prueba</h2>";
 $curso->eliminar($nuevoId);
 echo "Curso eliminado.<br>";
 
+require_once __DIR__ . '/models/Profesor.php';
+
+$profesor = new Profesor();
+
+echo "<h2>Profesores existentes</h2>";
+$listaProfesores = $profesor->obtenerTodos();
+foreach ($listaProfesores as $fila) {
+    echo "ID " . $fila['ID_Profesor'] . " - " . $fila['Nombre'] . " " . $fila['Apellido'] . "<br>";
+}
+
+echo "<h2>Crear un profesor nuevo</h2>";
+$nuevoIdProfesor = $profesor->crear('Mariano', 'Peralta');
+echo "Profesor creado con ID: " . $nuevoIdProfesor . "<br>";
+
+echo "<h2>Actualizar ese profesor</h2>";
+$profesor->actualizar($nuevoIdProfesor, 'Mariano', 'Peralta Rodríguez');
+echo "Profesor actualizado.<br>";
+
+echo "<h2>Ver el profesor actualizado</h2>";
+$profesorActualizado = $profesor->obtenerPorId($nuevoIdProfesor);
+echo $profesorActualizado['Nombre'] . " " . $profesorActualizado['Apellido'] . "<br>";
+
+echo "<h2>Eliminar el profesor de prueba</h2>";
+$profesor->eliminar($nuevoIdProfesor);
+echo "Profesor eliminado.<br>";
+
