@@ -90,7 +90,7 @@ $profesorMateria = new ProfesorMateria();
 
 echo "<h2>Asignar una materia a un profesor</h2>";
 $profesorMateria->asignarMateria(1, 3);
-echo "Se asignó la materia con ID 3 al profesor con ID 1.<br>";
+echo "Se asigno la materia con ID 3 al profesor con ID 1.<br>";
 
 echo "<h2>Materias del profesor 1</h2>";
 $materiasDelProfesor = $profesorMateria->obtenerMateriasDeProfesor(1);
@@ -106,5 +106,33 @@ foreach ($profesoresDeMateria as $fila) {
 
 echo "<h2>Quitar esa materia del profesor</h2>";
 $profesorMateria->quitarMateria(1, 3);
-echo "Se quitó la materia con ID 3 del profesor con ID 1.<br>";
+echo "Se quito la materia con ID 3 del profesor con ID 1.<br>";
+
+// Anexo
+
+require_once __DIR__ . '/models/Anexo.php';
+
+$anexo = new Anexo();
+
+echo "<h2>Anexos existentes</h2>";
+$listaAnexos = $anexo->obtenerTodos();
+foreach ($listaAnexos as $fila) {
+    echo "ID " . $fila['ID_Anexo'] . " - " . $fila['Nombre'] . "<br>";
+}
+
+echo "<h2>Crear un anexo nuevo</h2>";
+$nuevoIdAnexo = $anexo->crear('Anexo polideportivo', 'Anexo orientado al deporte.');
+echo "Anexo creado con ID: " . $nuevoIdAnexo . "<br>";
+
+echo "<h2>Actualizar ese anexo</h2>";
+$anexo->actualizar($nuevoIdAnexo, 'Anexo polideportivo', 'Descripcion actualizada de prueba.');
+echo "Anexo actualizado.<br>";
+
+echo "<h2>Ver el anexo actualizado</h2>";
+$anexoActualizado = $anexo->obtenerPorId($nuevoIdAnexo);
+echo $anexoActualizado['Nombre'] . " - " . $anexoActualizado['Descripcion'] . "<br>";
+
+echo "<h2>Eliminar el anexo de prueba</h2>";
+$anexo->eliminar($nuevoIdAnexo);
+echo "Anexo eliminado.<br>";
 
