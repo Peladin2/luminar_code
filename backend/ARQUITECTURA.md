@@ -28,8 +28,6 @@ Expone las operaciones CRUD sobre la tabla Materia: obtenerTodos(), obtenerPorId
 
 ProfesorMateria.php
 
-ProfesorMateria.php
-
 Maneja la tabla intermedia Profesor_Materia, que representa la agregacion del cuerpo docente en el DER. Resuelve la relacion de muchos a muchos entre profesores y materias: un profe puede dar varias materias y una materia la pueden dictar varios profes.
 
 Como esta tabla no tiene un ID propio,su clave primaria es la combinacion de ID_Profesor e ID_Materia, no se le hace un CRUD tradicional como a Curso o Materia. No hay un registro independiente para actualizar, la relacion existe o no existe.
@@ -37,6 +35,10 @@ Como esta tabla no tiene un ID propio,su clave primaria es la combinacion de ID_
 Por eso la clase tiene metodos pensados para esa relacion: asignarMateria() y quitarMateria() para crear o borrar el vinculo, y obtenerMateriasDeProfesor() junto con obtenerProfesoresDeMateria() para consultar los datos desde ambos lados.
 
 Para estas consultas se usa un INNER JOIN. Como la tabla intermedia guarda unicamente numeros IDs, hay que cruzarla con Profesor o Materia para traer los nombres reales, que es lo que realmente sirve mostrar en la pantalla.
+
+Anexo.php
+
+Expone las operaciones CRUD sobre la tabla Anexo: obtenerTodos(), obtenerPorId(), crear(), actualizar() y eliminar(). No se puede eliminar un anexo que tenga Ofertas_Educativas asociadas, queda bloqueado por el ON DELETE RESTRICT de esa relacion, segun la RNE-11.
 
 Capa de Presentacion - backend/probar_crud.php
 
