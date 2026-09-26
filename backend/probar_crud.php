@@ -192,3 +192,31 @@ echo "<h2>Eliminar el evento de prueba</h2>";
 $evento->eliminar($nuevoIdEvento);
 echo "Evento eliminado.<br>";
 
+// Noticia
+
+require_once __DIR__ . '/models/Noticia.php';
+
+$noticia = new Noticia();
+
+echo "<h2>Noticias existentes</h2>";
+$listaNoticias = $noticia->obtenerTodos();
+foreach ($listaNoticias as $fila) {
+    echo "ID " . $fila['ID_Noticia'] . " - " . $fila['Titulo'] . " (" . $fila['Fecha'] . ")<br>";
+}
+
+echo "<h2>Crear una noticia nueva</h2>";
+$nuevoIdNoticia = $noticia->crear('Suspension de clases', '2026-09-30', 'Se suspenden las clases por corte de agua.', null, 1);
+echo "Noticia creada con ID: " . $nuevoIdNoticia . "<br>";
+
+echo "<h2>Actualizar esa noticia</h2>";
+$noticia->actualizar($nuevoIdNoticia, 'Suspension de clases confirmada', '2026-09-30', 'Descripcion actualizada de prueba.', null);
+echo "Noticia actualizada.<br>";
+
+echo "<h2>Ver la noticia actualizada</h2>";
+$noticiaActualizada = $noticia->obtenerPorId($nuevoIdNoticia);
+echo $noticiaActualizada['Titulo'] . " - " . $noticiaActualizada['Descripcion'] . "<br>";
+
+echo "<h2>Eliminar la noticia de prueba</h2>";
+$noticia->eliminar($nuevoIdNoticia);
+echo "Noticia eliminada.<br>";
+
