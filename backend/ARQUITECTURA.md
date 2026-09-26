@@ -40,6 +40,10 @@ Anexo.php
 
 Expone las operaciones CRUD sobre la tabla Anexo: obtenerTodos(), obtenerPorId(), crear(), actualizar() y eliminar(). No se puede eliminar un anexo que tenga Ofertas_Educativas asociadas, queda bloqueado por el ON DELETE RESTRICT de esa relacion, segun la RNE-11.
 
+Turno.php
+
+Expone las operaciones CRUD sobre la tabla Turno: obtenerTodos(), obtenerPorId(), crear(), actualizar() y eliminar(). Igual que con Anexo, no se puede eliminar un turno que tenga Ofertas_Educativas asociadas (ON DELETE RESTRICT, RNE-11).
+
 Capa de Presentacion - backend/probar_crud.php
 
 Script de prueba que usa las clases de models para mostrar resultados en pantalla, sin conocer nada de SQL ni de la conexion a la base de datos. 
