@@ -136,3 +136,31 @@ echo "<h2>Eliminar el anexo de prueba</h2>";
 $anexo->eliminar($nuevoIdAnexo);
 echo "Anexo eliminado.<br>";
 
+// Turno
+
+require_once __DIR__ . '/models/Turno.php';
+
+$turno = new Turno();
+
+echo "<h2>Turnos existentes</h2>";
+$listaTurnos = $turno->obtenerTodos();
+foreach ($listaTurnos as $fila) {
+    echo "ID " . $fila['ID_Turno'] . " - Turno " . $fila['Numero_Turno'] . ": " . $fila['Descripcion'] . " (" . $fila['Hora_Entrada'] . " a " . $fila['Hora_Salida'] . ")<br>";
+}
+
+echo "<h2>Crear un turno nuevo</h2>";
+$nuevoIdTurno = $turno->crear(6, 'nose', '08:00:00', '12:00:00');
+echo "Turno creado con ID: " . $nuevoIdTurno . "<br>";
+
+echo "<h2>Actualizar ese turno</h2>";
+$turno->actualizar($nuevoIdTurno, 6, 'nose Extendido', '08:00:00', '13:00:00');
+echo "Turno actualizado.<br>";
+
+echo "<h2>Ver el turno actualizado</h2>";
+$turnoActualizado = $turno->obtenerPorId($nuevoIdTurno);
+echo $turnoActualizado['Descripcion'] . " - " . $turnoActualizado['Hora_Entrada'] . " a " . $turnoActualizado['Hora_Salida'] . "<br>";
+
+echo "<h2>Eliminar el turno de prueba</h2>";
+$turno->eliminar($nuevoIdTurno);
+echo "Turno eliminado.<br>";
+
