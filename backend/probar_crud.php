@@ -164,3 +164,31 @@ echo "<h2>Eliminar el turno de prueba</h2>";
 $turno->eliminar($nuevoIdTurno);
 echo "Turno eliminado.<br>";
 
+// Evento
+
+require_once __DIR__ . '/models/Evento.php';
+
+$evento = new Evento();
+
+echo "<h2>Eventos existentes</h2>";
+$listaEventos = $evento->obtenerTodos();
+foreach ($listaEventos as $fila) {
+    echo "ID " . $fila['ID_Evento'] . " - " . $fila['Titulo'] . " (" . $fila['Fecha'] . ")<br>";
+}
+
+echo "<h2>Crear un evento nuevo</h2>";
+$nuevoIdEvento = $evento->crear('Dia del estudiante', '2026-11-15', 'Actividades para los estudiantes.', null, 1);
+echo "Evento creado con ID: " . $nuevoIdEvento . "<br>";
+
+echo "<h2>Actualizar ese evento</h2>";
+$evento->actualizar($nuevoIdEvento, 'Dia del estudiante y nose', '2026-11-15', 'Descripcion actualizada de prueba.', null);
+echo "Evento actualizado.<br>";
+
+echo "<h2>Ver el evento actualizado</h2>";
+$eventoActualizado = $evento->obtenerPorId($nuevoIdEvento);
+echo $eventoActualizado['Titulo'] . " - " . $eventoActualizado['Descripcion'] . "<br>";
+
+echo "<h2>Eliminar el evento de prueba</h2>";
+$evento->eliminar($nuevoIdEvento);
+echo "Evento eliminado.<br>";
+
