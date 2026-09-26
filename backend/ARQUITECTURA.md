@@ -44,6 +44,10 @@ Turno.php
 
 Expone las operaciones CRUD sobre la tabla Turno: obtenerTodos(), obtenerPorId(), crear(), actualizar() y eliminar(). Igual que con Anexo, no se puede eliminar un turno que tenga Ofertas_Educativas asociadas (ON DELETE RESTRICT, RNE-11).
 
+Evento.php
+
+Expone las operaciones CRUD sobre la tabla Evento: obtenerTodos(), obtenerPorId(), crear(), actualizar() y eliminar(). El metodo actualizar() no permite cambiar el ID_Administrador, ya que no tiene sentido que un evento cambie de responsable al editarse, solo se edita su contenido (titulo, fecha, descripcion, imagen).
+
 Capa de Presentacion - backend/probar_crud.php
 
 Script de prueba que usa las clases de models para mostrar resultados en pantalla, sin conocer nada de SQL ni de la conexion a la base de datos. 
