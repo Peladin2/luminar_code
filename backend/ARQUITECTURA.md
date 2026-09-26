@@ -48,6 +48,10 @@ Evento.php
 
 Expone las operaciones CRUD sobre la tabla Evento: obtenerTodos(), obtenerPorId(), crear(), actualizar() y eliminar(). El metodo actualizar() no permite cambiar el ID_Administrador, ya que no tiene sentido que un evento cambie de responsable al editarse, solo se edita su contenido (titulo, fecha, descripcion, imagen).
 
+Noticia.php
+
+Expone las operaciones CRUD sobre la tabla Noticia: obtenerTodos(), obtenerPorId(), crear(), actualizar() y eliminar(). El ID_Administrador no se puede modificar al actualizar, solo el contenido de la noticia.
+
 Capa de Presentacion - backend/probar_crud.php
 
 Script de prueba que usa las clases de models para mostrar resultados en pantalla, sin conocer nada de SQL ni de la conexion a la base de datos. 
