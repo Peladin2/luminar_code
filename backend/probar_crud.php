@@ -220,3 +220,31 @@ echo "<h2>Eliminar la noticia de prueba</h2>";
 $noticia->eliminar($nuevoIdNoticia);
 echo "Noticia eliminada.<br>";
 
+//Estadistica
+
+require_once __DIR__ . '/models/Estadistica.php';
+
+$estadistica = new Estadistica();
+
+echo "<h2>Estadisticas existentes</h2>";
+$listaEstadisticas = $estadistica->obtenerTodos();
+foreach ($listaEstadisticas as $fila) {
+    echo "ID " . $fila['ID_Estadistica'] . " - " . $fila['Titulo'] . ": " . $fila['Valor'] . " (" . $fila['Anio'] . ")<br>";
+}
+
+echo "<h2>Crear una estadistica nueva</h2>";
+$nuevoIdEstadistica = $estadistica->crear('Cantidad de docentes', '85', 2026, 1);
+echo "Estadistica creada con ID: " . $nuevoIdEstadistica . "<br>";
+
+echo "<h2>Actualizar esa estadistica</h2>";
+$estadistica->actualizar($nuevoIdEstadistica, 'Cantidad de docentes activos', '90', 2026);
+echo "Estadistica actualizada.<br>";
+
+echo "<h2>Ver la estadistica actualizada</h2>";
+$estadisticaActualizada = $estadistica->obtenerPorId($nuevoIdEstadistica);
+echo $estadisticaActualizada['Titulo'] . " - " . $estadisticaActualizada['Valor'] . "<br>";
+
+echo "<h2>Eliminar la estadistica de prueba</h2>";
+$estadistica->eliminar($nuevoIdEstadistica);
+echo "Estadistica eliminada.<br>";
+
