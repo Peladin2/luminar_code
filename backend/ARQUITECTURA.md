@@ -52,6 +52,10 @@ Noticia.php
 
 Expone las operaciones CRUD sobre la tabla Noticia: obtenerTodos(), obtenerPorId(), crear(), actualizar() y eliminar(). El ID_Administrador no se puede modificar al actualizar, solo el contenido de la noticia.
 
+Estadistica.php
+
+Expone las operaciones CRUD sobre la tabla Estadistica: obtenerTodos(), obtenerPorId(), crear(), actualizar() y eliminar(). El ID_Administrador no se puede modificar al actualizar.
+
 Capa de Presentacion - backend/probar_crud.php
 
 Script de prueba que usa las clases de models para mostrar resultados en pantalla, sin conocer nada de SQL ni de la conexion a la base de datos. 
