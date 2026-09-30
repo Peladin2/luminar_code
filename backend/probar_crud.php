@@ -248,3 +248,32 @@ echo "<h2>Eliminar la estadistica de prueba</h2>";
 $estadistica->eliminar($nuevoIdEstadistica);
 echo "Estadistica eliminada.<br>";
 
+//Documento
+
+require_once __DIR__ . '/models/Documento.php';
+
+$documento = new Documento();
+
+echo "<h2>Documentos existentes</h2>";
+$listaDocumentos = $documento->obtenerTodos();
+foreach ($listaDocumentos as $fila) {
+    $soloDocentesTexto = $fila['Solo_Docentes'] == 1 ? "Si" : "No";
+    echo "ID " . $fila['ID_Documento'] . " - " . $fila['Nombre'] . " (Solo docentes: " . $soloDocentesTexto . ")<br>";
+}
+
+echo "<h2>Crear un documento nuevo</h2>";
+$nuevoIdDocumento = $documento->crear('Reglamento de Convivencia', 'Normas de convivencia institucional.', '/documentos/reglamento_convivencia.pdf', 0, 1);
+echo "Documento creado con ID: " . $nuevoIdDocumento . "<br>";
+
+echo "<h2>Actualizar ese documento</h2>";
+$documento->actualizar($nuevoIdDocumento, 'Reglamento de Convivencia', 'Descripcion actualizada de prueba.', '/documentos/reglamento_convivencia.pdf', 0);
+echo "Documento actualizado.<br>";
+
+echo "<h2>Ver el documento actualizado</h2>";
+$documentoActualizado = $documento->obtenerPorId($nuevoIdDocumento);
+echo $documentoActualizado['Nombre'] . " - " . $documentoActualizado['Descripcion'] . "<br>";
+
+echo "<h2>Eliminar el documento de prueba</h2>";
+$documento->eliminar($nuevoIdDocumento);
+echo "Documento eliminado.<br>";
+
