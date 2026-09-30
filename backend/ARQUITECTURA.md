@@ -56,6 +56,10 @@ Estadistica.php
 
 Expone las operaciones CRUD sobre la tabla Estadistica: obtenerTodos(), obtenerPorId(), crear(), actualizar() y eliminar(). El ID_Administrador no se puede modificar al actualizar.
 
+Documento.php
+
+Expone las operaciones CRUD sobre la tabla Documento: obtenerTodos(), obtenerPorId(), crear(), actualizar() y eliminar(). El ID_Administrador no se puede modificar al actualizar. El campo Solo_Docentes distingue si el documento es de acceso publico o exclusivo para docentes.
+
 Capa de Presentacion - backend/probar_crud.php
 
 Script de prueba que usa las clases de models para mostrar resultados en pantalla, sin conocer nada de SQL ni de la conexion a la base de datos. 
