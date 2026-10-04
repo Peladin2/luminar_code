@@ -329,3 +329,29 @@ echo "<h2>Eliminar la oferta de prueba</h2>";
 $ofertaEducativa->eliminar($nuevoIdOferta);
 echo "Oferta eliminada.<br>";
 
+//OfertaMateria
+
+require_once __DIR__ . '/models/OfertaMateria.php';
+
+$ofertaMateria = new OfertaMateria();
+
+echo "<h2>Asignar una materia a una oferta</h2>";
+$ofertaMateria->asignarMateria(1, 3);
+echo "Se asigno la materia con ID 3 a la oferta con ID 1.<br>";
+
+echo "<h2>Materias de la oferta 1</h2>";
+$materiasDeOferta = $ofertaMateria->obtenerMateriasDeOferta(1);
+foreach ($materiasDeOferta as $fila) {
+    echo $fila['Nombre'] . "<br>";
+}
+
+echo "<h2>Ofertas que incluyen la materia 3</h2>";
+$ofertasDeMateria = $ofertaMateria->obtenerOfertasDeMateria(3);
+foreach ($ofertasDeMateria as $fila) {
+    echo "Oferta ID " . $fila['ID_Oferta'] . " - Grado " . $fila['Grado'] . "<br>";
+}
+
+echo "<h2>Quitar esa materia de la oferta</h2>";
+$ofertaMateria->quitarMateria(1, 3);
+echo "Se quito la materia con ID 3 de la oferta con ID 1.<br>";
+
