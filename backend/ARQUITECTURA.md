@@ -72,6 +72,10 @@ La clase tiene dos formas de listar las ofertas, segun para que se las necesite.
 
 Si la oferta tiene Preinscripciones asociadas, el ON DELETE CASCADE de esa relacion hace que se borren junto con ella al eliminarla.
 
+OfertaMateria.php
+
+Maneja la tabla intermedia Oferta_Materia, que en el DER es la relacion "Incluye" entre Oferta_Educativa y Materia, (que materias se dictan en cada oferta concreta). Mismo caso que ProfesorMateria: no tiene ID propio, asi que en vez de CRUD expone asignarMateria(), quitarMateria(), obtenerMateriasDeOferta() y obtenerOfertasDeMateria(), las dos ultimas con INNER JOIN para traer los nombres reales en vez de los IDs.
+
 Capa de Presentacion - backend/probar_crud.php
 
 Script de prueba que usa las clases de models para mostrar resultados en pantalla, sin conocer nada de SQL ni de la conexion a la base de datos. 
