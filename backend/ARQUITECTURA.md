@@ -60,6 +60,10 @@ Documento.php
 
 Expone las operaciones CRUD sobre la tabla Documento: obtenerTodos(), obtenerPorId(), crear(), actualizar() y eliminar(). El ID_Administrador no se puede modificar al actualizar. El campo Solo_Docentes distingue si el documento es de acceso publico o exclusivo para docentes.
 
+Sugerencia.php
+
+Expone obtenerTodos(), obtenerPorId(), crear() y eliminar() sobre la tabla Sugerencia. No tiene actualizar(), porque no hay ningun requisito que pida poder editar una sugerencia ya enviada. Las consultas de lectura no traen el ID_Usuario en el resultado, ya que segun la RNE-10 las sugerencias se muestran de forma anonima al publico, aunque el vinculo con el usuario sigue existiendo en la tabla.
+
 Capa de Presentacion - backend/probar_crud.php
 
 Script de prueba que usa las clases de models para mostrar resultados en pantalla, sin conocer nada de SQL ni de la conexion a la base de datos. 
