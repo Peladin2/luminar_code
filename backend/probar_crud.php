@@ -277,3 +277,27 @@ echo "<h2>Eliminar el documento de prueba</h2>";
 $documento->eliminar($nuevoIdDocumento);
 echo "Documento eliminado.<br>";
 
+//Sugerencia
+
+require_once __DIR__ . '/models/Sugerencia.php';
+
+$sugerencia = new Sugerencia();
+
+echo "<h2>Sugerencias existentes</h2>";
+$listaSugerencias = $sugerencia->obtenerTodos();
+foreach ($listaSugerencias as $fila) {
+    echo "ID " . $fila['ID_Sugerencia'] . " - " . $fila['Contenido'] . " (" . $fila['Fecha'] . ")<br>";
+}
+
+echo "<h2>Crear una sugerencia nueva</h2>";
+$nuevoIdSugerencia = $sugerencia->crear('Seria bueno tener un bebedero en el patio.', '2026-09-28', 3);
+echo "Sugerencia creada con ID: " . $nuevoIdSugerencia . "<br>";
+
+echo "<h2>Ver la sugerencia creada</h2>";
+$sugerenciaCreada = $sugerencia->obtenerPorId($nuevoIdSugerencia);
+echo $sugerenciaCreada['Contenido'] . "<br>";
+
+echo "<h2>Eliminar la sugerencia de prueba</h2>";
+$sugerencia->eliminar($nuevoIdSugerencia);
+echo "Sugerencia eliminada.<br>";
+
