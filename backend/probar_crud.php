@@ -301,3 +301,31 @@ echo "<h2>Eliminar la sugerencia de prueba</h2>";
 $sugerencia->eliminar($nuevoIdSugerencia);
 echo "Sugerencia eliminada.<br>";
 
+//OfertaEducativa
+
+require_once __DIR__ . '/models/OfertaEducativa.php';
+
+$ofertaEducativa = new OfertaEducativa();
+
+echo "<h2>Ofertas educativas con detalle</h2>";
+$listaOfertas = $ofertaEducativa->obtenerTodosConDetalle();
+foreach ($listaOfertas as $fila) {
+    echo $fila['Grado'] . " - " . $fila['NombreCurso'] . " (" . $fila['NombreTurno'] . ", " . $fila['NombreAnexo'] . ") - Cupo: " . $fila['Cupo_Maximo'] . "<br>";
+}
+
+echo "<h2>Crear una oferta nueva</h2>";
+$nuevoIdOferta = $ofertaEducativa->crear('2°', 28, 1, 2, 1, 1);
+echo "Oferta creada con ID: " . $nuevoIdOferta . "<br>";
+
+echo "<h2>Actualizar esa oferta</h2>";
+$ofertaEducativa->actualizar($nuevoIdOferta, '2°', 30, 1, 2, 1);
+echo "Oferta actualizada.<br>";
+
+echo "<h2>Ver la oferta actualizada</h2>";
+$ofertaActualizada = $ofertaEducativa->obtenerPorId($nuevoIdOferta);
+echo "Grado " . $ofertaActualizada['Grado'] . " - Cupo " . $ofertaActualizada['Cupo_Maximo'] . "<br>";
+
+echo "<h2>Eliminar la oferta de prueba</h2>";
+$ofertaEducativa->eliminar($nuevoIdOferta);
+echo "Oferta eliminada.<br>";
+
