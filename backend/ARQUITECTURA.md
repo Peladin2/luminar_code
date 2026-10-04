@@ -64,6 +64,14 @@ Sugerencia.php
 
 Expone obtenerTodos(), obtenerPorId(), crear() y eliminar() sobre la tabla Sugerencia. No tiene actualizar(), porque no hay ningun requisito que pida poder editar una sugerencia ya enviada. Las consultas de lectura no traen el ID_Usuario en el resultado, ya que segun la RNE-10 las sugerencias se muestran de forma anonima al publico, aunque el vinculo con el usuario sigue existiendo en la tabla.
 
+OfertaEducativa.php
+
+Expone obtenerTodos(), obtenerPorId(), crear(), actualizar() y eliminar() sobre la tabla Oferta_Educativa, que combina Curso, Turno y Anexo (la agregacion Oferta Educativa del DER). Mismo criterio que Evento/Noticia/Estadistica/Documento: el ID_Administrador no se puede modificar al actualizar.
+
+La clase tiene dos formas de listar las ofertas, segun para que se las necesite. obtenerTodos() da los IDs crudos de Curso, Turno y Anexo, util para cuando el administrador edita una oferta y el formulario necesita esos IDs para armar los selects. obtenerTodosConDetalle() en cambio usa INNER JOIN contra las tres tablas para traer los nombres reales en vez de los IDs, pensado para mostrar la oferta educativa al publico (RF-2), donde mostrar un numero suelto no sirve de nada.
+
+Si la oferta tiene Preinscripciones asociadas, el ON DELETE CASCADE de esa relacion hace que se borren junto con ella al eliminarla.
+
 Capa de Presentacion - backend/probar_crud.php
 
 Script de prueba que usa las clases de models para mostrar resultados en pantalla, sin conocer nada de SQL ni de la conexion a la base de datos. 
