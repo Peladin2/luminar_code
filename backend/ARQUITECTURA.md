@@ -76,6 +76,18 @@ OfertaMateria.php
 
 Maneja la tabla intermedia Oferta_Materia, que en el DER es la relacion "Incluye" entre Oferta_Educativa y Materia, (que materias se dictan en cada oferta concreta). Mismo caso que ProfesorMateria: no tiene ID propio, asi que en vez de CRUD expone asignarMateria(), quitarMateria(), obtenerMateriasDeOferta() y obtenerOfertasDeMateria(), las dos ultimas con INNER JOIN para traer los nombres reales en vez de los IDs.
 
+Preinscripcion.php
+
+Expone obtenerTodos(), obtenerPorId(), obtenerPorUsuario() y crear() sobre la tabla Preinscripcion. No tiene actualizar(), porque segun la RNE-3 la preinscripcion no maneja estados de aprobacion o rechazo, solo existe o se elimina. Tampoco se puede modificar su ID_Usuario o ID_Oferta una vez creada, por la misma razon.
+
+A diferencia del resto de los modelos, crear() no hace un simple INSERT, antes valida tres reglas de negocio, usando tres metodos privados de apoyo (contarPreinscripcionesDeUsuario(), yaExistePreinscripcion() y calcularPosicionLista()) que no tiene sentido llamar desde afuera de la clase.
+
+- RNE-1: rechaza la preinscripcion si el usuario ya tiene 3 preinscripciones.
+- RNE-2: rechaza la preinscripcion si el usuario ya esta preinscripto en esa misma oferta.
+- RNE-4: si el Cupo_Maximo de la oferta ya esta cubierto, la preinscripcion se crea igual pero con una Posicion_Lista calculada (cuantos ya estan esperando, mas uno), en vez de con Posicion_Lista NULL (que indica confirmado).
+
+Por estas validaciones, crear() no devuelve solo el ID como en los demas modelos, sino un array con exito (true o false) y, segun el caso, mensaje explicando el rechazo, o id y posicionLista si se creo correctamente.
+
 Capa de Presentacion - backend/probar_crud.php
 
 Script de prueba que usa las clases de models para mostrar resultados en pantalla, sin conocer nada de SQL ni de la conexion a la base de datos. 
