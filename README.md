@@ -40,4 +40,4 @@ Git instalado
 - docs: cambios en documentacion
 - db: cambios relacionados a la base de datos
 ## Estado del proyecto
-Segunda entrega en curso - 07/09/2026
+Tercera entrega en curso - 09/11/2026
