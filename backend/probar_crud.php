@@ -277,3 +277,117 @@ echo "<h2>Eliminar el documento de prueba</h2>";
 $documento->eliminar($nuevoIdDocumento);
 echo "Documento eliminado.<br>";
 
+//Sugerencia
+
+require_once __DIR__ . '/models/Sugerencia.php';
+
+$sugerencia = new Sugerencia();
+
+echo "<h2>Sugerencias existentes</h2>";
+$listaSugerencias = $sugerencia->obtenerTodos();
+foreach ($listaSugerencias as $fila) {
+    echo "ID " . $fila['ID_Sugerencia'] . " - " . $fila['Contenido'] . " (" . $fila['Fecha'] . ")<br>";
+}
+
+echo "<h2>Crear una sugerencia nueva</h2>";
+$nuevoIdSugerencia = $sugerencia->crear('Seria bueno tener un bebedero en el patio.', '2026-09-28', 3);
+echo "Sugerencia creada con ID: " . $nuevoIdSugerencia . "<br>";
+
+echo "<h2>Ver la sugerencia creada</h2>";
+$sugerenciaCreada = $sugerencia->obtenerPorId($nuevoIdSugerencia);
+echo $sugerenciaCreada['Contenido'] . "<br>";
+
+echo "<h2>Eliminar la sugerencia de prueba</h2>";
+$sugerencia->eliminar($nuevoIdSugerencia);
+echo "Sugerencia eliminada.<br>";
+
+//OfertaEducativa
+
+require_once __DIR__ . '/models/OfertaEducativa.php';
+
+$ofertaEducativa = new OfertaEducativa();
+
+echo "<h2>Ofertas educativas con detalle</h2>";
+$listaOfertas = $ofertaEducativa->obtenerTodosConDetalle();
+foreach ($listaOfertas as $fila) {
+    echo $fila['Grado'] . " - " . $fila['NombreCurso'] . " (" . $fila['NombreTurno'] . ", " . $fila['NombreAnexo'] . ") - Cupo: " . $fila['Cupo_Maximo'] . "<br>";
+}
+
+echo "<h2>Crear una oferta nueva</h2>";
+$nuevoIdOferta = $ofertaEducativa->crear('2°', 28, 1, 2, 1, 1);
+echo "Oferta creada con ID: " . $nuevoIdOferta . "<br>";
+
+echo "<h2>Actualizar esa oferta</h2>";
+$ofertaEducativa->actualizar($nuevoIdOferta, '2°', 30, 1, 2, 1);
+echo "Oferta actualizada.<br>";
+
+echo "<h2>Ver la oferta actualizada</h2>";
+$ofertaActualizada = $ofertaEducativa->obtenerPorId($nuevoIdOferta);
+echo "Grado " . $ofertaActualizada['Grado'] . " - Cupo " . $ofertaActualizada['Cupo_Maximo'] . "<br>";
+
+echo "<h2>Eliminar la oferta de prueba</h2>";
+$ofertaEducativa->eliminar($nuevoIdOferta);
+echo "Oferta eliminada.<br>";
+
+//OfertaMateria
+
+require_once __DIR__ . '/models/OfertaMateria.php';
+
+$ofertaMateria = new OfertaMateria();
+
+echo "<h2>Asignar una materia a una oferta</h2>";
+$ofertaMateria->asignarMateria(1, 3);
+echo "Se asigno la materia con ID 3 a la oferta con ID 1.<br>";
+
+echo "<h2>Materias de la oferta 1</h2>";
+$materiasDeOferta = $ofertaMateria->obtenerMateriasDeOferta(1);
+foreach ($materiasDeOferta as $fila) {
+    echo $fila['Nombre'] . "<br>";
+}
+
+echo "<h2>Ofertas que incluyen la materia 3</h2>";
+$ofertasDeMateria = $ofertaMateria->obtenerOfertasDeMateria(3);
+foreach ($ofertasDeMateria as $fila) {
+    echo "Oferta ID " . $fila['ID_Oferta'] . " - Grado " . $fila['Grado'] . "<br>";
+}
+
+echo "<h2>Quitar esa materia de la oferta</h2>";
+$ofertaMateria->quitarMateria(1, 3);
+echo "Se quito la materia con ID 3 de la oferta con ID 1.<br>";
+
+//Preinscripcion
+
+require_once __DIR__ . '/models/Preinscripcion.php';
+
+$preinscripcion = new Preinscripcion();
+
+echo "<h2>Crear una oferta de prueba con cupo 1</h2>";
+$idOfertaPrueba = $ofertaEducativa->crear('1°', 1, 1, 1, 1, 1);
+echo "Oferta de prueba creada con ID: " . $idOfertaPrueba . " (cupo maximo 1)<br>";
+
+echo "<h2>Primera preinscripcion a la oferta de prueba (usuario 5)</h2>";
+$resultado1 = $preinscripcion->crear('2026-10-04', null, 5, $idOfertaPrueba);
+echo $resultado1['mensaje'] ?? "Preinscripcion creada con ID " . $resultado1['id'] . ", posicion en lista: " . ($resultado1['posicionLista'] ?? 'confirmado, sin lista de espera') . "<br>";
+
+echo "<h2>Segunda preinscripcion a la misma oferta (usuario 6, cupo ya lleno)</h2>";
+$resultado2 = $preinscripcion->crear('2026-10-04', null, 6, $idOfertaPrueba);
+echo $resultado2['mensaje'] ?? "Preinscripcion creada con ID " . $resultado2['id'] . ", posicion en lista: " . ($resultado2['posicionLista'] ?? 'confirmado, sin lista de espera') . "<br>";
+
+echo "<h2>Intentar preinscribir al usuario 5 de nuevo a la misma oferta (debe fallar, RNE-2)</h2>";
+$resultado3 = $preinscripcion->crear('2026-10-04', null, 5, $idOfertaPrueba);
+echo $resultado3['exito'] ? "Se creo (no deberia)" : $resultado3['mensaje'];
+echo "<br>";
+
+echo "<h2>Tercera preinscripcion del usuario 3 (ya tenia 2, esta lo lleva a 3)</h2>";
+$resultado4 = $preinscripcion->crear('2026-10-04', null, 3, $idOfertaPrueba);
+echo $resultado4['mensaje'] ?? "Preinscripcion creada con ID " . $resultado4['id'] . ", posicion en lista: " . ($resultado4['posicionLista'] ?? 'confirmado, sin lista de espera') . "<br>";
+
+echo "<h2>Cuarta preinscripcion del usuario 3 (debe fallar, RNE-1)</h2>";
+$resultado5 = $preinscripcion->crear('2026-10-04', null, 3, 1);
+echo $resultado5['exito'] ? "Se creo (no deberia)" : $resultado5['mensaje'];
+echo "<br>";
+
+echo "<h2>Limpiar: eliminar la oferta de prueba (borra en cascada las preinscripciones de prueba)</h2>";
+$ofertaEducativa->eliminar($idOfertaPrueba);
+echo "Oferta de prueba eliminada.<br>";
+
