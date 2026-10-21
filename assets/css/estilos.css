@@ -598,7 +598,7 @@ a {
 
 .momentos li {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 16px;
   padding: 12px 0;
   border-bottom: 1px solid var(--linea);
@@ -609,7 +609,7 @@ a {
 }
 
 .momentos .anio {
-  min-width: 70px;
+  min-width: 110px;
   font-size: 18px;
   font-weight: 700;
   color: var(--marron);
