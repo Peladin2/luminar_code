@@ -56,7 +56,7 @@ $horario_adscripcion = '8:00 a 11:30 y 13:00 a 20:30';
                     <img src="../assets/iconos/aviso-error.png" alt="Error" class="icono-aviso">
                     <div>
                         <strong>Tu cuenta está desactivada</strong>
-                        <p class="mb-0">Si volviste a estudiar, comunicate con Adscripción para que la reactiven</p>
+                        <p class="mb-0">Comunicate con Adscripción al <?php echo $telefono_adscripcion; ?> para reactivarla</p>
                     </div>
                 </div>
             <?php } ?>
@@ -91,10 +91,11 @@ $horario_adscripcion = '8:00 a 11:30 y 13:00 a 20:30';
                         <div class="aviso mb-3">
                             <img src="../assets/iconos/aviso-info.png" alt="Información" class="icono-aviso">
                             <div>
-                                <strong>Comunicate con Adscripción</strong>
+                                <strong>¿Olvidaste tu contraseña?</strong>
                                 <p class="mb-0">
-                                    Llamá al <a href="tel:<?php echo str_replace(' ', '', $telefono_adscripcion); ?>"><?php echo $telefono_adscripcion; ?></a>
-                                    de <?php echo $horario_adscripcion; ?> y te asignan una contraseña nueva
+                                    Comunicate con Adscripción al <a href="tel:<?php echo str_replace(' ', '', $telefono_adscripcion); ?>"><?php echo $telefono_adscripcion; ?></a>
+                                    en su horario de atención (<?php echo $horario_adscripcion; ?>). Te van a asignar una contraseña nueva.
+                                </p>
                                 </p>
                             </div>
                         </div>
