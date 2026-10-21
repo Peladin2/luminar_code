@@ -731,6 +731,122 @@ a {
   color: var(--texto-suave);
 }
 
+/* estadisticas */
+.dato-grande {
+  display: flex;
+  flex-direction: column;
+}
+
+.dato-grande .numero {
+  font-size: 34px;
+  font-weight: 600;
+  color: var(--marron);
+  line-height: 1.2;
+}
+
+.dato-grande .dato-suave {
+  font-size: 12px;
+}
+
+.seccion-estadistica h2 {
+  font-size: 18px;
+  color: var(--marron);
+  margin-bottom: 16px;
+}
+
+.tabla-datos {
+  width: 100%;
+  font-size: 14px;
+}
+
+.tabla-datos th {
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.tabla-datos td {
+  padding: 10px 12px;
+  border-top: 1px solid var(--linea);
+}
+
+.tabla-datos .fila-total td {
+  border: none;
+  background-color: var(--marron);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.tabla-datos .fila-total td:last-child {
+  color: var(--amarillo);
+}
+
+.caja-dato {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  height: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--marron-borde);
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.caja-dato strong {
+  color: var(--marron);
+}
+
+.caja-dato .cantidad {
+  font-weight: 700;
+}
+
+.caja-total {
+  background-color: var(--marron);
+  color: #ffffff;
+}
+
+.caja-total strong {
+  color: #ffffff;
+}
+
+.caja-total .cantidad {
+  color: var(--amarillo);
+}
+
+.ir-a a.activo {
+  background-color: var(--dorado);
+  border-color: var(--dorado);
+}
+
+.fila-barra {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.fila-barra .nombre {
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.fila-barra .barra {
+  flex-grow: 1;
+  height: 16px;
+}
+
+.fila-barra .relleno {
+  height: 100%;
+  border-radius: 4px;
+  background-color: var(--dorado);
+}
+
+.fila-barra .cantidad {
+  width: 30px;
+  font-weight: 700;
+}
+
 /* pantallas medianas y celular */
 
 @media (max-width: 1399px) {
@@ -780,5 +896,10 @@ a {
 
   .cabecera-seccion h2 {
     font-size: 22px;
+  }
+
+    .fila-barra .nombre {
+    width: 130px;
+    font-size: 13px;
   }
 }
