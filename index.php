@@ -6,6 +6,12 @@ include 'includes/header.php';
 
 // los niveles son fijos, no cambian año a año
 $niveles = [
+        [
+        'nombre' => 'Capacitación Profesional Inicial (CPI)',
+        'texto'  => 'Electrotecnia básica',
+        'sede'   => 'Sede Central',
+        'codigo' => 'CPI'
+    ],
     [
         'nombre' => 'Ciclo Básico (EBI)',
         'texto'  => '7.º, 8.º y 9.º año | Turnos 1 y 3',
