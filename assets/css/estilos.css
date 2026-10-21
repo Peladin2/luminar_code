@@ -410,6 +410,136 @@ a {
   font-size: 16px;
 }
 
+/* inicio */
+
+.portada {
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  background-color: var(--marron);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('../img/fachada.jpg');
+  background-size: cover;
+  background-position: center 60%;
+  color: #ffffff;
+}
+
+.portada h1 {
+  color: #ffffff;
+  font-size: 44px;
+  margin-bottom: 8px;
+}
+
+.portada .nombre-completo {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.portada p {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.btn-amarillo {
+  background-color: var(--amarillo);
+  color: var(--marron);
+  font-weight: 700;
+  border: none;
+  border-radius: 6px;
+}
+
+.btn-amarillo:hover {
+  background-color: #d9b93c;
+  color: var(--marron);
+}
+
+.cabecera-seccion {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--linea);
+}
+
+.cabecera-seccion h2 {
+  font-size: 28px;
+  margin-bottom: 0;
+}
+
+.caja-becas {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background-color: var(--crema);
+  border: 1px solid var(--marron-borde);
+  border-radius: 6px;
+  padding: 10px 14px;
+}
+
+.caja-becas strong {
+  color: var(--marron);
+  font-size: 14px;
+}
+
+.recordatorio {
+  margin-bottom: 20px;
+}
+
+.recordatorio h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.lista-simple {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+  font-size: 13px;
+}
+
+.lista-simple li {
+  margin-bottom: 4px;
+}
+
+/* tarjetas con foto arriba (noticias y sedes) */
+.tarjeta-foto {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.tarjeta-foto img,
+.tarjeta-foto .foto-vacia {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.foto-vacia {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--linea);
+  color: var(--texto-suave);
+  font-size: 13px;
+}
+
+/* para que el link quede siempre abajo aunque el texto sea mas largo */
+.tarjeta-foto .cuerpo {
+  padding: 14px 16px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.tarjeta-foto .link-mas {
+  margin-top: auto;
+}
+
 /* pantallas medianas y celular */
 
 @media (max-width: 1399px) {
@@ -447,5 +577,17 @@ a {
 
   .tarjeta-mv h2 {
     font-size: 36px;
+  }
+
+    .portada {
+    min-height: 300px;
+  }
+
+  .portada h1 {
+    font-size: 30px;
+  }
+
+  .cabecera-seccion h2 {
+    font-size: 22px;
   }
 }
