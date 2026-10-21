@@ -53,13 +53,19 @@ include '../includes/header.php';
                         </div>
                         <div class="col-md-6">
                             <label for="contrasena" class="form-label">Contraseña</label>
+                        <div class="input-group has-validation">
                             <input type="password" id="contrasena" name="contrasena" class="form-control">
+                            <button type="button" class="btn btn-ojo" data-campo="contrasena" aria-label="Mostrar contraseña"><i class="bi bi-eye"></i></button>
                             <div class="invalid-feedback">Escribí una contraseña</div>
+                        </div>
                         </div>
                         <div class="col-md-6">
                             <label for="confirmar" class="form-label">Confirmar contraseña</label>
+                        <div class="input-group has-validation">
                             <input type="password" id="confirmar" name="confirmar" class="form-control">
+                            <button type="button" class="btn btn-ojo" data-campo="confirmar" aria-label="Mostrar contraseña"><i class="bi bi-eye"></i></button>
                             <div class="invalid-feedback">Las contraseñas no coinciden</div>
+                        </div>
                         </div>
                         <div class="col-md-6">
                             <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
@@ -115,5 +121,6 @@ include '../includes/header.php';
 </main>
 
 <script src="../assets/javascripts/registro.js"></script>
+<script src="../assets/javascripts/ver-contrasena.js"></script>
 
 <?php include '../includes/footer.php'; ?>

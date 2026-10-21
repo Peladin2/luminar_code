@@ -876,6 +876,19 @@ a {
   color: var(--marron);
 }
 
+/* boton del ojo al lado de la contraseña */
+.btn-ojo {
+  border: 1px solid var(--bs-border-color);
+  border-left: none;
+  background-color: #ffffff;
+  color: var(--marron);
+}
+
+.btn-ojo:hover {
+  background-color: var(--crema);
+  color: var(--marron);
+}
+
 /* pantallas medianas y celular */
 
 @media (max-width: 1399px) {
