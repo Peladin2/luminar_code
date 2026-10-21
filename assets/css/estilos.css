@@ -653,6 +653,84 @@ a {
   color: var(--marron);
 }
 
+/* servicios */
+.ir-a {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0 24px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--marron);
+}
+
+.ir-a a {
+  padding: 4px 12px;
+  border: 1px solid var(--marron);
+  border-radius: 20px;
+  background-color: var(--crema);
+  color: var(--marron);
+  text-decoration: none;
+}
+
+.ir-a a:hover {
+  background-color: var(--amarillo);
+}
+
+/* que al ir a una seccion no quede pegada arriba */
+.servicio {
+  scroll-margin-top: 20px;
+}
+
+.servicio img,
+.servicio .foto-vacia {
+  width: 100%;
+  height: 180px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.servicio h2 {
+  font-size: 24px;
+  color: var(--marron);
+  margin-bottom: 8px;
+}
+
+.servicio .bajada {
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--linea);
+}
+
+.datos-servicio dt {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--marron);
+}
+
+.datos-servicio dd {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.actividad {
+  margin-bottom: 12px;
+}
+
+.actividad h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--texto);
+  margin-bottom: 2px;
+}
+
+.actividad p {
+  margin-bottom: 0;
+  font-size: 13px;
+  color: var(--texto-suave);
+}
+
 /* pantallas medianas y celular */
 
 @media (max-width: 1399px) {
