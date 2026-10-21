@@ -34,6 +34,7 @@ if (!isset($hay_sesion)) {
                 <ul class="list-unstyled mb-0">
                     <li><a href="<?php echo $ruta; ?>index.php">Inicio</a></li>
                     <li><a href="<?php echo $ruta; ?>vistas/oferta.php">Oferta educativa</a></li>
+                    <li><a href="<?php echo $ruta; ?>vistas/horarios.php">Horarios</a></li>
                     <li><a href="<?php echo $ruta; ?>vistas/historia.php">Historia del centro</a></li>
                     <li><a href="<?php echo $ruta; ?>vistas/contacto.php#mapa">Cómo llegar</a></li>
                     <?php if ($hay_sesion) { ?>

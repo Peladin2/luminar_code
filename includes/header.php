@@ -28,6 +28,7 @@ $hay_sesion = isset($_SESSION['id_usuario']);
                             <li><a class="dropdown-item" href="<?php echo $ruta; ?>vistas/historia.php">Historia</a></li>
                             <li><a class="dropdown-item" href="<?php echo $ruta; ?>vistas/logros.php">Logros y reconocimientos</a></li>
                             <li><a class="dropdown-item" href="<?php echo $ruta; ?>vistas/servicios.php">Servicios al estudiante</a></li>
+                            <li><a class="dropdown-item" href="<?php echo $ruta; ?>vistas/horarios.php">Horarios</a></li>
                             <li><a class="dropdown-item" href="<?php echo $ruta; ?>vistas/normas.php">Normas y uniforme</a></li>
                             <li><a class="dropdown-item" href="<?php echo $ruta; ?>vistas/estadisticas.php">Estadísticas</a></li>
                             <li><a class="dropdown-item" href="<?php echo $ruta; ?>vistas/documentos.php">Documentos</a></li>
