@@ -906,6 +906,41 @@ a {
   height: 48px;
 }
 
+/* oferta educativa */
+.filtros .form-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--marron);
+  margin-bottom: 4px;
+}
+
+.tarjeta-oferta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.tarjeta-oferta h2 {
+  font-size: 19px;
+  color: var(--marron);
+  margin-bottom: 6px;
+}
+
+.lado-oferta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.etiqueta-cupos {
+  padding: 6px 10px;
+  border-radius: 6px;
+  background-color: #F5EFE3;
+  font-size: 13px;
+}
+
 /* pantallas medianas y celular */
 
 @media (max-width: 1399px) {
