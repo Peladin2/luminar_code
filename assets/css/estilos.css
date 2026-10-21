@@ -578,6 +578,53 @@ a {
   margin-bottom: 4px;
 }
 
+/* historia */
+.tarjeta-historia h2 {
+  font-size: 22px;
+  color: var(--marron);
+  margin-bottom: 14px;
+}
+
+.foto-historia .foto-vacia {
+  height: 300px;
+  border-radius: 6px;
+}
+
+.momentos {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.momentos li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--linea);
+}
+
+.momentos li:last-child {
+  border-bottom: none;
+}
+
+.momentos .anio {
+  min-width: 70px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--marron);
+}
+
+.link-volver {
+  color: var(--link);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link-volver:hover {
+  text-decoration: underline;
+}
+
 /* pantallas medianas y celular */
 
 @media (max-width: 1399px) {
