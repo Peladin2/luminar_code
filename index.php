@@ -132,7 +132,7 @@ $sedes = [
         <div class="container">
             <h1>Escuela Técnica N.º 1</h1>
             <p class="nombre-completo">Mtro. Téc. Sergio G. Olaizola</p>
-            <p>Bella Unión, Uruguay | Fundada el 9 de marzo de 1978</p>
+            <p>Bella Unión, Uruguay | Fundada en 1978</p>
             <p>Formando técnicos y profesionales para el Uruguay</p>
             <div class="d-flex flex-wrap gap-2 mt-4">
                 <a href="vistas/oferta.php" class="btn btn-dorado">Ver oferta educativa</a>

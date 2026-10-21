@@ -133,7 +133,7 @@ foreach ($demanda as $fila) {
             <div class="tarjeta dato-grande">
                 <span class="numero"><?php echo $anios_historia; ?></span>
                 <strong>Años de historia</strong>
-                <span class="dato-suave">Fundada el 9 de marzo de 1978</span>
+                <span class="dato-suave">Fundada en 1978</span>
             </div>
         </div>
         <div class="col-6 col-lg-3">

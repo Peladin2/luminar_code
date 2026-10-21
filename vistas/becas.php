@@ -4,9 +4,9 @@ $ruta = '../';
 include '../includes/head.php';
 include '../includes/header.php';
 
-// integracion backend: telefono y correo salen de Configuracion
-// falta confirmar el telefono de adscripcion con la escuela
-$telefono_adscripcion = '4779 4146';
+// integracion backend: telefono, horario y correo salen de Configuracion
+$telefono_adscripcion = '4779 4046';
+$horario_adscripcion = '8:00 a 11:30 y 13:00 a 20:30';
 $correo = 'ubellaunion@gmail.com';
 
 // pasos para pedir la beca butia
@@ -57,6 +57,10 @@ $pasos = [
                 <p>
                     <strong>Teléfono Adscripción:</strong>
                     <a href="tel:<?php echo str_replace(' ', '', $telefono_adscripcion); ?>"><?php echo $telefono_adscripcion; ?></a>
+                </p>
+                <p>
+                    <strong>Horario de Adscripción:</strong>
+                    <?php echo $horario_adscripcion; ?>
                 </p>
                 <p class="mb-0">
                     <strong>Correo:</strong>
