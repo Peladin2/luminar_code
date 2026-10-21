@@ -308,6 +308,107 @@ a {
   font-size: 12px;
 }
 
+/* partes que se repiten en varias paginas */
+
+.miga {
+  --bs-breadcrumb-divider: '›';
+  font-size: 13px;
+  margin-bottom: 0;
+}
+
+.miga a,
+.miga .active {
+  color: var(--texto-suave);
+  text-decoration: none;
+}
+
+.miga a:hover {
+  text-decoration: underline;
+}
+
+.banda-titulo {
+  background-color: var(--marron);
+  padding: 30px 0;
+}
+
+.banda-titulo h1 {
+  color: #ffffff;
+  font-size: 34px;
+  margin-bottom: 6px;
+}
+
+.banda-titulo p {
+  color: #E5D199;
+  margin-bottom: 0;
+}
+
+.subtitulo {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+
+/* mision y vision */
+
+.intro {
+  background-color: var(--crema);
+  padding: 24px 0;
+}
+
+.intro p {
+  color: #402B0A;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.tarjeta-mv h2 {
+  font-size: 48px;
+  text-align: center;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #B89E4D;
+}
+
+.tarjeta-mv p {
+  color: #402B0A;
+  font-size: 17px;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+.acceso {
+  display: block;
+  color: var(--texto);
+  text-decoration: none;
+}
+
+.acceso:hover {
+  border-color: var(--dorado);
+  color: var(--texto);
+}
+
+.acceso .circulo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--fondo);
+  color: var(--marron);
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.acceso .circulo img {
+  width: 24px;
+  height: 24px;
+}
+
+.acceso h3 {
+  font-size: 16px;
+}
 
 /* pantallas medianas y celular */
 
@@ -334,5 +435,17 @@ a {
 
   .barra-superior .logo {
     height: 36px;
+  }
+
+    .banda-titulo h1 {
+    font-size: 26px;
+  }
+
+  .intro p {
+    font-size: 17px;
+  }
+
+  .tarjeta-mv h2 {
+    font-size: 36px;
   }
 }
