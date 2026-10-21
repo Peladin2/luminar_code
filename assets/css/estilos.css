@@ -540,6 +540,44 @@ a {
   margin-top: auto;
 }
 
+/* becas */
+/* aca las tarjetas van una abajo de la otra, para que no tengan estirarse */
+.tarjeta-beca,
+.info-util {
+  height: auto;
+}
+.tarjeta-beca h2 {
+  font-size: 22px;
+  color: var(--marron);
+  margin-bottom: 16px;
+}
+
+.tarjeta-beca p {
+  margin-bottom: 8px;
+}
+
+.info-util h2 {
+  font-size: 17px;
+  color: var(--marron);
+  margin-bottom: 14px;
+}
+
+.info-util h3 {
+  font-size: 15px;
+  color: var(--marron);
+  margin-bottom: 8px;
+}
+
+.lista-pasos {
+  padding-left: 18px;
+  margin-bottom: 0;
+  font-size: 14px;
+}
+
+.lista-pasos li {
+  margin-bottom: 4px;
+}
+
 /* pantallas medianas y celular */
 
 @media (max-width: 1399px) {
