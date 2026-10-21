@@ -889,6 +889,23 @@ a {
   color: var(--marron);
 }
 
+/* horarios sin sesion */
+.restringido {
+  max-width: 560px;
+  text-align: center;
+}
+
+.restringido h2 {
+  font-size: 20px;
+  color: var(--marron);
+  margin: 10px 0 8px;
+}
+
+.icono-restringido {
+  width: 48px;
+  height: 48px;
+}
+
 /* pantallas medianas y celular */
 
 @media (max-width: 1399px) {
