@@ -60,7 +60,7 @@ if (!isset($hay_sesion)) {
         </div>
 
         <div class="barra-final">
-            © <?php echo date('Y'); ?> Escuela Técnica de Bella Unión N.º 1 — ANEP-UTU.
+            © <?php echo date('Y'); ?> Escuela Técnica de Bella Unión N.º 1 - ANEP-UTU.
         </div>
     </div>
 </footer>
