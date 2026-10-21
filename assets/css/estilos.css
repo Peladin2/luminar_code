@@ -847,6 +847,35 @@ a {
   font-weight: 700;
 }
 
+/* crear cuenta */
+.form-cuenta h1 {
+  font-size: 26px;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.form-cuenta .form-label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.bloque-responsable {
+  padding: 14px 16px;
+  border: 1px solid var(--marron-borde);
+  border-radius: 6px;
+}
+
+.bloque-responsable legend {
+  float: none;
+  width: auto;
+  padding: 0 6px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--marron);
+}
+
 /* pantallas medianas y celular */
 
 @media (max-width: 1399px) {
