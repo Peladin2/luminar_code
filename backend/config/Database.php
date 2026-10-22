@@ -1,23 +1,18 @@
 <?php
+class Database {
+  private $servername = "localhost";
+  private $username = "luminar_usuario";
+  private $password = "luminar_usuario12345";
+  private $dbname = "centro_educativo_db";
 
-class Database
-{
-    public $conexion;
-
-    public function __construct()
-    {
-        $host = 'localhost';
-        $baseDatos = 'centro_educativo_db';
-        $usuario = 'luminar_usuario';
-        $clave = 'luminar_usuario12345';
-
-        $dsn = 'mysql:host=' . $host . ';dbname=' . $baseDatos . ';charset=utf8mb4';
-
-        try {
-            $this->conexion = new PDO($dsn, $usuario, $clave);
-            $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-            die('Error de conexion a la base de datos: ' . $e->getMessage());
-        }
+  public function conectar() {
+    try {
+      $conn = new PDO("mysql:host=$this->servername;dbname=$this->dbname;charset=utf8mb4", $this->username, $this->password);
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      return $conn;
+    } catch(PDOException $e) {
+      die("Error de conexion: " . $e->getMessage());
     }
+  }
 }
+?>
