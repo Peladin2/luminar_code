@@ -1,0 +1,3 @@
+# archivos que sube el admin, no van al repo
+uploads/*
+!uploads/.gitkeep
