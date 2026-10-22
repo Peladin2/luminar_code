@@ -941,6 +941,33 @@ a {
   font-size: 13px;
 }
 
+/* detalle de curso */
+.detalle-curso h1 {
+  font-size: 26px;
+  margin-bottom: 4px;
+}
+
+.bloque-curso {
+  padding-top: 14px;
+  margin-top: 14px;
+  border-top: 1px solid var(--linea);
+}
+
+.bloque-curso h2,
+.otros-cursos h2 {
+  font-size: 17px;
+  color: var(--marron);
+  margin-bottom: 8px;
+}
+
+.bloque-curso ul {
+  padding-left: 20px;
+}
+
+.otros-cursos .caja-dato {
+  height: auto;
+}
+
 /* pantallas medianas y celular */
 
 @media (max-width: 1399px) {
