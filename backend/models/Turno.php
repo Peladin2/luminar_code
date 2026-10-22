@@ -1,84 +1,117 @@
 <?php
+class Turno {
+  private $conn;
+  private $idTurno;
+  private $numeroTurno;
+  private $descripcion;
+  private $horaEntrada;
+  private $horaSalida;
 
-require_once __DIR__ . '/../config/Database.php';
+  public function __construct($conn) {
+    $this->conn = $conn;
+  }
 
-class Turno
-{
-    private $conexion;
+  public function obtenerTodos() {
+    $stmt = $this->conn->prepare("SELECT * FROM Turno ORDER BY Numero_Turno");
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    return $stmt->fetchAll();
+  }
 
-    public function __construct()
-    {
-        $db = new Database();
-        $this->conexion = $db->conexion;
+  public function obtenerPorId($id) {
+    $stmt = $this->conn->prepare("SELECT * FROM Turno WHERE ID_Turno = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $fila = $stmt->fetch();
+
+    if ($fila) {
+      $this->idTurno = $fila['ID_Turno'];
+      $this->numeroTurno = $fila['Numero_Turno'];
+      $this->descripcion = $fila['Descripcion'];
+      $this->horaEntrada = $fila['Hora_Entrada'];
+      $this->horaSalida = $fila['Hora_Salida'];
     }
+    return $fila;
+  }
 
-    public function obtenerTodos()
-    {
-        $sql = 'SELECT ID_Turno, Numero_Turno, Descripcion, Hora_Entrada, Hora_Salida FROM Turno ORDER BY Numero_Turno';
-        $consulta = $this->conexion->query($sql);
-        return $consulta->fetchAll(PDO::FETCH_ASSOC);
+  public function crear() {
+    try {
+      $stmt = $this->conn->prepare("INSERT INTO Turno (Numero_Turno, Descripcion, Hora_Entrada, Hora_Salida)
+      VALUES (:numero, :descripcion, :entrada, :salida)");
+      $stmt->bindParam(':numero', $this->numeroTurno);
+      $stmt->bindParam(':descripcion', $this->descripcion);
+      $stmt->bindParam(':entrada', $this->horaEntrada);
+      $stmt->bindParam(':salida', $this->horaSalida);
+      $stmt->execute();
+      $this->idTurno = $this->conn->lastInsertId();
+      return true;
+    } catch(PDOException $e) {
+      return false;
     }
+  }
 
-    public function obtenerPorId($id)
-    {
-        $sql = 'SELECT ID_Turno, Numero_Turno, Descripcion, Hora_Entrada, Hora_Salida FROM Turno WHERE ID_Turno = :id';
-        $consulta = $this->conexion->prepare($sql);
-        $consulta->bindParam(':id', $id, PDO::PARAM_INT);
-        $consulta->execute();
-
-        $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
-
-        if ($resultado) {
-            return $resultado;
-        } else {
-            return null;
-        }
+  public function actualizar() {
+    try {
+      $stmt = $this->conn->prepare("UPDATE Turno SET Numero_Turno = :numero, Descripcion = :descripcion,
+      Hora_Entrada = :entrada, Hora_Salida = :salida WHERE ID_Turno = :id");
+      $stmt->bindParam(':numero', $this->numeroTurno);
+      $stmt->bindParam(':descripcion', $this->descripcion);
+      $stmt->bindParam(':entrada', $this->horaEntrada);
+      $stmt->bindParam(':salida', $this->horaSalida);
+      $stmt->bindParam(':id', $this->idTurno);
+      $stmt->execute();
+      return true;
+    } catch(PDOException $e) {
+      return false;
     }
+  }
 
-    public function crear($numeroTurno, $descripcion, $horaEntrada, $horaSalida)
-    {
-        $sql = 'INSERT INTO Turno (Numero_Turno, Descripcion, Hora_Entrada, Hora_Salida) VALUES (:numeroTurno, :descripcion, :horaEntrada, :horaSalida)';
-        $consulta = $this->conexion->prepare($sql);
-        $consulta->bindParam(':numeroTurno', $numeroTurno, PDO::PARAM_INT);
-        $consulta->bindParam(':descripcion', $descripcion);
-        $consulta->bindParam(':horaEntrada', $horaEntrada);
-        $consulta->bindParam(':horaSalida', $horaSalida);
-        $consulta->execute();
-
-        return $this->conexion->lastInsertId();
+  public function eliminar($id) {
+    try {
+      $stmt = $this->conn->prepare("DELETE FROM Turno WHERE ID_Turno = :id");
+      $stmt->bindParam(':id', $id);
+      $stmt->execute();
+      return true;
+    } catch(PDOException $e) {
+      return false;
     }
+  }
 
-    public function actualizar($id, $numeroTurno, $descripcion, $horaEntrada, $horaSalida)
-    {
-        $sql = 'UPDATE Turno SET Numero_Turno = :numeroTurno, Descripcion = :descripcion, Hora_Entrada = :horaEntrada, Hora_Salida = :horaSalida WHERE ID_Turno = :id';
-        $consulta = $this->conexion->prepare($sql);
-        $consulta->bindParam(':numeroTurno', $numeroTurno, PDO::PARAM_INT);
-        $consulta->bindParam(':descripcion', $descripcion);
-        $consulta->bindParam(':horaEntrada', $horaEntrada);
-        $consulta->bindParam(':horaSalida', $horaSalida);
-        $consulta->bindParam(':id', $id, PDO::PARAM_INT);
-        $consulta->execute();
+  public function getIdTurno() {
+    return $this->idTurno;
+  }
 
-        if ($consulta->rowCount() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+  public function getNumeroTurno() {
+    return $this->numeroTurno;
+  }
 
-    // si el turno tiene Ofertas_Educativas asociadas,
-    // esto falla por el ON DELETE RESTRICT (RNE-11).
-    public function eliminar($id)
-    {
-        $sql = 'DELETE FROM Turno WHERE ID_Turno = :id';
-        $consulta = $this->conexion->prepare($sql);
-        $consulta->bindParam(':id', $id, PDO::PARAM_INT);
-        $consulta->execute();
+  public function setNumeroTurno($numeroTurno) {
+    $this->numeroTurno = $numeroTurno;
+  }
 
-        if ($consulta->rowCount() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+  public function getDescripcion() {
+    return $this->descripcion;
+  }
+
+  public function setDescripcion($descripcion) {
+    $this->descripcion = $descripcion;
+  }
+
+  public function getHoraEntrada() {
+    return $this->horaEntrada;
+  }
+
+  public function setHoraEntrada($horaEntrada) {
+    $this->horaEntrada = $horaEntrada;
+  }
+
+  public function getHoraSalida() {
+    return $this->horaSalida;
+  }
+
+  public function setHoraSalida($horaSalida) {
+    $this->horaSalida = $horaSalida;
+  }
 }
+?>
