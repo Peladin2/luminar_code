@@ -1,7 +1,6 @@
 <?php
 // pie de pagina, va al final de cada pagina
 // INTEGRACIÓN BACKEND: telefono, correo, direccion y redes despues salen de Configuracion
-// falta: confirmar telefono, correo y direccion con la escuela
 
 // por si alguna pagina no tiene el header
 if (!isset($hay_sesion)) {
