@@ -1,78 +1,103 @@
 <?php
+class Materia {
+  private $conn;
+  private $idMateria;
+  private $nombre;
+  private $descripcion;
 
-require_once __DIR__ . '/../config/Database.php';
+  public function __construct($conn) {
+    $this->conn = $conn;
+  }
 
-class Materia
-{
-    private $conexion;
+  public function obtenerTodos() {
+    $stmt = $this->conn->prepare("SELECT * FROM Materia ORDER BY Nombre");
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    return $stmt->fetchAll();
+  }
 
-    public function __construct()
-    {
-        $db = new Database();
-        $this->conexion = $db->conexion;
+  public function obtenerPorId($id) {
+    $stmt = $this->conn->prepare("SELECT * FROM Materia WHERE ID_Materia = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $fila = $stmt->fetch();
+
+    if ($fila) {
+      $this->idMateria = $fila['ID_Materia'];
+      $this->nombre = $fila['Nombre'];
+      $this->descripcion = $fila['Descripcion'];
     }
+    return $fila;
+  }
 
-    public function obtenerTodos()
-    {
-        $sql = 'SELECT ID_Materia, Nombre FROM Materia ORDER BY Nombre';
-        $consulta = $this->conexion->query($sql);
-        return $consulta->fetchAll(PDO::FETCH_ASSOC);
+  public function crear() {
+    try {
+      $stmt = $this->conn->prepare("INSERT INTO Materia (Nombre, Descripcion) VALUES (:nombre, :descripcion)");
+      $stmt->bindParam(':nombre', $this->nombre);
+      $stmt->bindParam(':descripcion', $this->descripcion);
+      $stmt->execute();
+      $this->idMateria = $this->conn->lastInsertId();
+      return true;
+    } catch(PDOException $e) {
+      return false;
     }
+  }
 
-    public function obtenerPorId($id)
-    {
-        $sql = 'SELECT ID_Materia, Nombre FROM Materia WHERE ID_Materia = :id';
-        $consulta = $this->conexion->prepare($sql);
-        $consulta->bindParam(':id', $id, PDO::PARAM_INT);
-        $consulta->execute();
-
-        $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
-
-        if ($resultado) {
-            return $resultado;
-        } else {
-            return null;
-        }
+  public function actualizar() {
+    try {
+      $stmt = $this->conn->prepare("UPDATE Materia SET Nombre = :nombre, Descripcion = :descripcion WHERE ID_Materia = :id");
+      $stmt->bindParam(':nombre', $this->nombre);
+      $stmt->bindParam(':descripcion', $this->descripcion);
+      $stmt->bindParam(':id', $this->idMateria);
+      $stmt->execute();
+      return true;
+    } catch(PDOException $e) {
+      return false;
     }
+  }
 
-    public function crear($nombre)
-    {
-        $sql = 'INSERT INTO Materia (Nombre) VALUES (:nombre)';
-        $consulta = $this->conexion->prepare($sql);
-        $consulta->bindParam(':nombre', $nombre);
-        $consulta->execute();
-
-        return $this->conexion->lastInsertId();
+  public function eliminar($id) {
+    try {
+      $stmt = $this->conn->prepare("DELETE FROM Materia WHERE ID_Materia = :id");
+      $stmt->bindParam(':id', $id);
+      $stmt->execute();
+      return true;
+    } catch(PDOException $e) {
+      return false;
     }
+  }
 
-    public function actualizar($id, $nombre)
-    {
-        $sql = 'UPDATE Materia SET Nombre = :nombre WHERE ID_Materia = :id';
-        $consulta = $this->conexion->prepare($sql);
-        $consulta->bindParam(':nombre', $nombre);
-        $consulta->bindParam(':id', $id, PDO::PARAM_INT);
-        $consulta->execute();
+  public function obtenerProfesores() {
+    $stmt = $this->conn->prepare("SELECT p.ID_Profesor, p.Nombre, p.Apellido
+    FROM Profesor p
+    INNER JOIN Profesor_Materia pm ON p.ID_Profesor = pm.ID_Profesor
+    WHERE pm.ID_Materia = :id
+    ORDER BY p.Apellido");
+    $stmt->bindParam(':id', $this->idMateria);
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    return $stmt->fetchAll();
+  }
 
-        if ($consulta->rowCount() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+  public function getIdMateria() {
+    return $this->idMateria;
+  }
 
-    // Si la materia tiene vinculos en Profesor_Materia
-    // u Oferta_Materia, esos se borran en cascada al eliminarla.
-    public function eliminar($id)
-    {
-        $sql = 'DELETE FROM Materia WHERE ID_Materia = :id';
-        $consulta = $this->conexion->prepare($sql);
-        $consulta->bindParam(':id', $id, PDO::PARAM_INT);
-        $consulta->execute();
+  public function getNombre() {
+    return $this->nombre;
+  }
 
-        if ($consulta->rowCount() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+  public function setNombre($nombre) {
+    $this->nombre = $nombre;
+  }
+
+  public function getDescripcion() {
+    return $this->descripcion;
+  }
+
+  public function setDescripcion($descripcion) {
+    $this->descripcion = $descripcion;
+  }
 }
+?>
