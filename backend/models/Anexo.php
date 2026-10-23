@@ -1,82 +1,166 @@
 <?php
+class Anexo {
+  private $conn;
+  private $idAnexo;
+  private $nombre;
+  private $descripcion;
+  private $direccion;
+  private $telefono;
+  private $horarioAtencion;
+  private $urlMapa;
+  private $urlImagen;
 
-require_once __DIR__ . '/../config/Database.php';
+  public function __construct($conn) {
+    $this->conn = $conn;
+  }
 
-class Anexo
-{
-    private $conexion;
+  public function obtenerTodos() {
+    $stmt = $this->conn->prepare("SELECT * FROM Anexo ORDER BY ID_Anexo");
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    return $stmt->fetchAll();
+  }
 
-    public function __construct()
-    {
-        $db = new Database();
-        $this->conexion = $db->conexion;
+  public function obtenerPorId($id) {
+    $stmt = $this->conn->prepare("SELECT * FROM Anexo WHERE ID_Anexo = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $fila = $stmt->fetch();
+
+    if ($fila) {
+      $this->idAnexo = $fila['ID_Anexo'];
+      $this->nombre = $fila['Nombre'];
+      $this->descripcion = $fila['Descripcion'];
+      $this->direccion = $fila['Direccion'];
+      $this->telefono = $fila['Telefono'];
+      $this->horarioAtencion = $fila['Horario_Atencion'];
+      $this->urlMapa = $fila['URL_Mapa'];
+      $this->urlImagen = $fila['URL_Imagen'];
     }
+    return $fila;
+  }
 
-    public function obtenerTodos()
-    {
-        $sql = 'SELECT ID_Anexo, Nombre, Descripcion, URL_Imagen FROM Anexo ORDER BY Nombre';
-        $consulta = $this->conexion->query($sql);
-        return $consulta->fetchAll(PDO::FETCH_ASSOC);
+  public function crear() {
+    try {
+      $stmt = $this->conn->prepare("INSERT INTO Anexo (Nombre, Descripcion, Direccion, Telefono, Horario_Atencion, URL_Mapa, URL_Imagen)
+      VALUES (:nombre, :descripcion, :direccion, :telefono, :horario, :mapa, :imagen)");
+      $stmt->bindParam(':nombre', $this->nombre);
+      $stmt->bindParam(':descripcion', $this->descripcion);
+      $stmt->bindParam(':direccion', $this->direccion);
+      $stmt->bindParam(':telefono', $this->telefono);
+      $stmt->bindParam(':horario', $this->horarioAtencion);
+      $stmt->bindParam(':mapa', $this->urlMapa);
+      $stmt->bindParam(':imagen', $this->urlImagen);
+      $stmt->execute();
+      $this->idAnexo = $this->conn->lastInsertId();
+      return true;
+    } catch(PDOException $e) {
+      return false;
     }
+  }
 
-    public function obtenerPorId($id)
-    {
-        $sql = 'SELECT ID_Anexo, Nombre, Descripcion, URL_Imagen FROM Anexo WHERE ID_Anexo = :id';
-        $consulta = $this->conexion->prepare($sql);
-        $consulta->bindParam(':id', $id, PDO::PARAM_INT);
-        $consulta->execute();
-
-        $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
-
-        if ($resultado) {
-            return $resultado;
-        } else {
-            return null;
-        }
+  public function actualizar() {
+    try {
+      $stmt = $this->conn->prepare("UPDATE Anexo SET Nombre = :nombre, Descripcion = :descripcion, Direccion = :direccion,
+      Telefono = :telefono, Horario_Atencion = :horario, URL_Mapa = :mapa, URL_Imagen = :imagen WHERE ID_Anexo = :id");
+      $stmt->bindParam(':nombre', $this->nombre);
+      $stmt->bindParam(':descripcion', $this->descripcion);
+      $stmt->bindParam(':direccion', $this->direccion);
+      $stmt->bindParam(':telefono', $this->telefono);
+      $stmt->bindParam(':horario', $this->horarioAtencion);
+      $stmt->bindParam(':mapa', $this->urlMapa);
+      $stmt->bindParam(':imagen', $this->urlImagen);
+      $stmt->bindParam(':id', $this->idAnexo);
+      $stmt->execute();
+      return true;
+    } catch(PDOException $e) {
+      return false;
     }
+  }
 
-    public function crear($nombre, $descripcion, $urlImagen = null)
-    {
-        $sql = 'INSERT INTO Anexo (Nombre, Descripcion, URL_Imagen) VALUES (:nombre, :descripcion, :urlImagen)';
-        $consulta = $this->conexion->prepare($sql);
-        $consulta->bindParam(':nombre', $nombre);
-        $consulta->bindParam(':descripcion', $descripcion);
-        $consulta->bindParam(':urlImagen', $urlImagen);
-        $consulta->execute();
-
-        return $this->conexion->lastInsertId();
+  public function eliminar($id) {
+    try {
+      $stmt = $this->conn->prepare("DELETE FROM Anexo WHERE ID_Anexo = :id");
+      $stmt->bindParam(':id', $id);
+      $stmt->execute();
+      return true;
+    } catch(PDOException $e) {
+      return false;
     }
+  }
 
-    public function actualizar($id, $nombre, $descripcion, $urlImagen = null)
-    {
-        $sql = 'UPDATE Anexo SET Nombre = :nombre, Descripcion = :descripcion, URL_Imagen = :urlImagen WHERE ID_Anexo = :id';
-        $consulta = $this->conexion->prepare($sql);
-        $consulta->bindParam(':nombre', $nombre);
-        $consulta->bindParam(':descripcion', $descripcion);
-        $consulta->bindParam(':urlImagen', $urlImagen);
-        $consulta->bindParam(':id', $id, PDO::PARAM_INT);
-        $consulta->execute();
+  public function obtenerOfertas() {
+    $stmt = $this->conn->prepare("SELECT o.ID_Oferta, o.Grado, o.Anio_Lectivo, c.Nombre AS Curso, t.Descripcion AS Turno
+    FROM Oferta_Educativa o
+    INNER JOIN Curso c ON o.ID_Curso = c.ID_Curso
+    INNER JOIN Turno t ON o.ID_Turno = t.ID_Turno
+    WHERE o.ID_Anexo = :id
+    ORDER BY o.Anio_Lectivo, c.Nombre");
+    $stmt->bindParam(':id', $this->idAnexo);
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    return $stmt->fetchAll();
+  }
 
-        if ($consulta->rowCount() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+  public function getIdAnexo() {
+    return $this->idAnexo;
+  }
 
-    // Si el anexo tiene Ofertas_Educativas asociadas, esto falla por el
-    // ON DELETE RESTRICT definido en Oferta_Educativa (RNE-11).
-    public function eliminar($id)
-    {
-        $sql = 'DELETE FROM Anexo WHERE ID_Anexo = :id';
-        $consulta = $this->conexion->prepare($sql);
-        $consulta->bindParam(':id', $id, PDO::PARAM_INT);
-        $consulta->execute();
+  public function getNombre() {
+    return $this->nombre;
+  }
 
-        if ($consulta->rowCount() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+  public function setNombre($nombre) {
+    $this->nombre = $nombre;
+  }
+
+  public function getDescripcion() {
+    return $this->descripcion;
+  }
+
+  public function setDescripcion($descripcion) {
+    $this->descripcion = $descripcion;
+  }
+
+  public function getDireccion() {
+    return $this->direccion;
+  }
+
+  public function setDireccion($direccion) {
+    $this->direccion = $direccion;
+  }
+
+  public function getTelefono() {
+    return $this->telefono;
+  }
+
+  public function setTelefono($telefono) {
+    $this->telefono = $telefono;
+  }
+
+  public function getHorarioAtencion() {
+    return $this->horarioAtencion;
+  }
+
+  public function setHorarioAtencion($horarioAtencion) {
+    $this->horarioAtencion = $horarioAtencion;
+  }
+
+  public function getUrlMapa() {
+    return $this->urlMapa;
+  }
+
+  public function setUrlMapa($urlMapa) {
+    $this->urlMapa = $urlMapa;
+  }
+
+  public function getUrlImagen() {
+    return $this->urlImagen;
+  }
+
+  public function setUrlImagen($urlImagen) {
+    $this->urlImagen = $urlImagen;
+  }
 }
+?>
