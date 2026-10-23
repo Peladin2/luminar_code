@@ -1053,6 +1053,12 @@ a {
   margin: 12px 0 6px;
 }
 
+/* asignaturas */
+.buscador {
+  flex: 1;
+  min-width: 200px;
+}
+
 /* pantallas medianas y celular */
 
 @media (max-width: 1399px) {
