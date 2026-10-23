@@ -1073,6 +1073,45 @@ a {
   scroll-margin-top: 20px;
 }
 
+/* mi perfil */
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: var(--dorado);
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.text-marron {
+  color: var(--marron);
+}
+
+.borde-abajo {
+  border-bottom: 1px solid var(--linea);
+}
+
+.datos-perfil dt {
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--texto-suave);
+}
+
+.datos-perfil dd {
+  font-weight: 600;
+}
+
+/* campos que no se pueden cambiar */
+.form-control[readonly] {
+  background-color: #F5EFE3;
+  color: var(--texto-suave);
+}
+
 /* pantallas medianas y celular */
 
 @media (max-width: 1399px) {
