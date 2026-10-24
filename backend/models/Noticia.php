@@ -1,83 +1,136 @@
 <?php
+class Noticia {
+  private $conn;
+  private $idNoticia;
+  private $titulo;
+  private $fecha;
+  private $descripcion;
+  private $urlImagen;
+  private $idAdministrador;
 
-require_once __DIR__ . '/../config/Database.php';
+  public function __construct($conn) {
+    $this->conn = $conn;
+  }
 
-class Noticia
-{
-    private $conexion;
+  public function obtenerTodos() {
+    $stmt = $this->conn->prepare("SELECT * FROM Noticia ORDER BY Fecha DESC");
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    return $stmt->fetchAll();
+  }
 
-    public function __construct()
-    {
-        $db = new Database();
-        $this->conexion = $db->conexion;
+  public function obtenerPorId($id) {
+    $stmt = $this->conn->prepare("SELECT * FROM Noticia WHERE ID_Noticia = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $fila = $stmt->fetch();
+
+    if ($fila) {
+      $this->idNoticia = $fila['ID_Noticia'];
+      $this->titulo = $fila['Titulo'];
+      $this->fecha = $fila['Fecha'];
+      $this->descripcion = $fila['Descripcion'];
+      $this->urlImagen = $fila['URL_Imagen'];
+      $this->idAdministrador = $fila['ID_Administrador'];
     }
+    return $fila;
+  }
 
-    public function obtenerTodos()
-    {
-        $sql = 'SELECT ID_Noticia, Titulo, Fecha, Descripcion, URL_Imagen, ID_Administrador FROM Noticia ORDER BY Fecha DESC';
-        $consulta = $this->conexion->query($sql);
-        return $consulta->fetchAll(PDO::FETCH_ASSOC);
+  public function crear() {
+    try {
+      $stmt = $this->conn->prepare("INSERT INTO Noticia (Titulo, Fecha, Descripcion, URL_Imagen, ID_Administrador)
+      VALUES (:titulo, :fecha, :descripcion, :imagen, :admin)");
+      $stmt->bindParam(':titulo', $this->titulo);
+      $stmt->bindParam(':fecha', $this->fecha);
+      $stmt->bindParam(':descripcion', $this->descripcion);
+      $stmt->bindParam(':imagen', $this->urlImagen);
+      $stmt->bindParam(':admin', $this->idAdministrador);
+      $stmt->execute();
+      $this->idNoticia = $this->conn->lastInsertId();
+      return true;
+    } catch(PDOException $e) {
+      return false;
     }
+  }
 
-    public function obtenerPorId($id)
-    {
-         $sql = 'SELECT ID_Noticia, Titulo, Fecha, Descripcion, URL_Imagen, ID_Administrador FROM Noticia WHERE ID_Noticia = :id';
-         $consulta = $this->conexion->prepare($sql);
-         $consulta->bindParam(':id', $id, PDO::PARAM_INT);
-         $consulta->execute();
-
-         $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
-
-         if ($resultado) {
-            return $resultado;
-         } else {
-            return null;
-         }
+  public function actualizar() {
+    try {
+      $stmt = $this->conn->prepare("UPDATE Noticia SET Titulo = :titulo, Fecha = :fecha, Descripcion = :descripcion,
+      URL_Imagen = :imagen WHERE ID_Noticia = :id");
+      $stmt->bindParam(':titulo', $this->titulo);
+      $stmt->bindParam(':fecha', $this->fecha);
+      $stmt->bindParam(':descripcion', $this->descripcion);
+      $stmt->bindParam(':imagen', $this->urlImagen);
+      $stmt->bindParam(':id', $this->idNoticia);
+      $stmt->execute();
+      return true;
+    } catch(PDOException $e) {
+      return false;
     }
+  }
 
-    public function crear($titulo, $fecha, $descripcion, $urlImagen, $idAdministrador)
-    {
-        $sql = 'INSERT INTO Noticia (Titulo, Fecha, Descripcion, URL_Imagen, ID_Administrador) VALUES (:titulo, :fecha, :descripcion, :urlImagen, :idAdministrador)';
-        $consulta = $this->conexion->prepare($sql);
-        $consulta->bindParam(':titulo', $titulo);
-        $consulta->bindParam(':fecha', $fecha);
-        $consulta->bindParam(':descripcion', $descripcion);
-        $consulta->bindParam(':urlImagen', $urlImagen);
-        $consulta->bindParam(':idAdministrador', $idAdministrador, PDO::PARAM_INT);
-        $consulta->execute();
-
-        return $this->conexion->lastInsertId();
+  public function eliminar($id) {
+    try {
+      $stmt = $this->conn->prepare("DELETE FROM Noticia WHERE ID_Noticia = :id");
+      $stmt->bindParam(':id', $id);
+      $stmt->execute();
+      return true;
+    } catch(PDOException $e) {
+      return false;
     }
+  }
 
-    public function actualizar ($id, $titulo, $fecha, $descripcion, $urlImagen)
-    {
-        $sql = 'UPDATE Noticia SET Titulo = :titulo, Fecha = :fecha, Descripcion = :descripcion, URL_Imagen = :urlImagen WHERE ID_Noticia = :id';
-        $consulta = $this->conexion->prepare($sql);
-        $consulta->bindParam(':titulo', $titulo);
-        $consulta->bindParam(':fecha', $fecha);
-        $consulta->bindParam(':descripcion', $descripcion);
-        $consulta->bindParam(':urlImagen', $urlImagen);
-        $consulta->bindParam(':id', $id, PDO::PARAM_INT);
-        $consulta->execute();
+  public function obtenerUltimas($cantidad) {
+    $stmt = $this->conn->prepare("SELECT * FROM Noticia ORDER BY Fecha DESC LIMIT :cantidad");
+    $stmt->bindParam(':cantidad', $cantidad, PDO::PARAM_INT);
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    return $stmt->fetchAll();
+  }
 
-        if ($consulta->rowCount() > 0){
-            return true;
-        } else {
-            return false;
-        }
-    }
+  public function getIdNoticia() {
+    return $this->idNoticia;
+  }
 
-    public function eliminar ($id)
-    {
-        $sql = 'DELETE FROM Noticia WHERE ID_Noticia = :id';
-        $consulta = $this->conexion->prepare($sql);
-        $consulta->bindParam(':id', $id, PDO::PARAM_INT);
-        $consulta->execute();
+  public function getTitulo() {
+    return $this->titulo;
+  }
 
-        if ($consulta->rowCount() > 0){
-            return true;
-        } else {
-            return false;
-        }
-    }
+  public function setTitulo($titulo) {
+    $this->titulo = $titulo;
+  }
+
+  public function getFecha() {
+    return $this->fecha;
+  }
+
+  public function setFecha($fecha) {
+    $this->fecha = $fecha;
+  }
+
+  public function getDescripcion() {
+    return $this->descripcion;
+  }
+
+  public function setDescripcion($descripcion) {
+    $this->descripcion = $descripcion;
+  }
+
+  public function getUrlImagen() {
+    return $this->urlImagen;
+  }
+
+  public function setUrlImagen($urlImagen) {
+    $this->urlImagen = $urlImagen;
+  }
+
+  public function getIdAdministrador() {
+    return $this->idAdministrador;
+  }
+
+  public function setIdAdministrador($idAdministrador) {
+    $this->idAdministrador = $idAdministrador;
+  }
 }
+?>
